@@ -1,0 +1,50 @@
+.stars {
+  padding: 12px 64px 32px;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.statistic {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1.5px dashed #f4c550;
+  padding: 40px 123px;
+  border-radius: 30px;
+  width: 1312px;
+  height: 116px;
+}
+
+.textBox {
+  display: flex;
+  gap: 16px;
+}
+
+.textFat {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 114%;
+  letter-spacing: -0.02em;
+  color: #121417;
+}
+
+.textLittle {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: rgba(18, 20, 23, 0.7);
+  width: 76px;
+}
