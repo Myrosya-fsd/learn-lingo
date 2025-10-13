@@ -1,0 +1,58 @@
+.header {
+  padding: 20px 128px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  gap: 28px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  color: #121417;
+}
+
+.authContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.loginWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerLink {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+  color: #121417;
+  padding: 14px 0;
+  border: none;
+}
+
+.headerLinkRight {
+  border-radius: 12px;
+  padding: 14px 39px;
+  width: 166px;
+  height: 48px;
+  background-color: #121417;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+  color: #fff;
+}
+
+span {
+  font-style: italic;
+  font-weight: 400;
+  background-color: #fbe9ba;
+}

@@ -5,7 +5,7 @@ import Stars from "../../components/Stars/Stars.jsx";
 const HomePage = () => {
   return (
     <>
-      <Hero />;
+      <Hero />
       <Stars />
     </>
   );

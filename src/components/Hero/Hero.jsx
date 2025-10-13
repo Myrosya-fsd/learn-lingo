@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Hero.module.css";
-import hero1x from "/public/img/img-hero-1x.jpg";
-import hero2x from "/public/img/img-hero-2x.jpg";
+import hero1x from "../../assets/img/img-hero-1x.jpg";
+import hero2x from "../../assets/img/img-hero-2x.jpg";
 
 const Hero = () => {
   return (
@@ -12,10 +13,12 @@ const Hero = () => {
         </h1>
         <p className={styles.heroText}>
           Embark on an Exciting Language Journey with Expert Language Tutors:
-          Elevate your language proficiency to new heights by connecting with
-          highly qualified and experienced tutors.
+          Elevate your <span>language</span> proficiency to new heights by
+          connecting with highly qualified and experienced tutors.
         </p>
-        <button className={styles.heroBtn}>Get started</button>
+        <Link to="/teachers" className={styles.heroLink}>
+          Get started
+        </Link>
       </div>
       <img
         className={styles.img}
