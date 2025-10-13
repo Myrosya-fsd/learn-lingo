@@ -11,7 +11,7 @@ const Header = () => {
       <div>
         <NavLink to="/" end>
           <svg className={styles.icon} width="133" height="38">
-            <use xlinkHref="/public/symbol-defs.svg#icon-logo" />
+            <use xlinkHref="/symbol-defs.svg#icon-logo" />
           </svg>
         </NavLink>
       </div>
@@ -24,7 +24,7 @@ const Header = () => {
       <div className={styles.authContainer}>
         <div className={styles.loginWrapper}>
           <svg className={styles.icon} width="20" height="20">
-            <use xlinkHref="/public/symbol-defs.svg#icon-log-in" />
+            <use xlinkHref="/symbol-defs.svg#icon-log-in" />
           </svg>
           <Link to="/login" className={styles.headerLink}>
             Log in

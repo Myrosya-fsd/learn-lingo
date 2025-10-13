@@ -56,3 +56,9 @@ span {
   font-weight: 400;
   background-color: #fbe9ba;
 }
+
+.nav a,
+.nav a:visited {
+  color: #121417;
+  text-decoration: none;
+}
