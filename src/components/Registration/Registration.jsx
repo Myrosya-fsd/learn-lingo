@@ -1,5 +1,6 @@
 import styles from "./Registration.module.css";
 import { useState } from "react";
+import { registerUser } from "../../firebaseAuth.js";
 
 const Registration = ({ onClose }) => {
   const [email, setEmail] = useState("");
@@ -28,12 +29,16 @@ const Registration = ({ onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      alert(" Logged in successfully!");
-      // тут додати запит до сервера
-      onClose();
+      try {
+        await registerUser(email, password);
+        alert("Registered successfully!");
+        onClose();
+      } catch (err) {
+        alert("Error: " + err.message);
+      }
     }
   };
 
