@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 import Login from "../Login/Login.jsx";
 import Registration from "../Registration/Registration.jsx";
+import Modal from "../Modal/Modal.jsx";
 
 const Header = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <header className={styles.header}>
       <div>
@@ -26,9 +32,9 @@ const Header = () => {
           <svg className={styles.icon} width="20" height="20">
             <use xlinkHref="/symbol-defs.svg#icon-log-in" />
           </svg>
-          <Link to="/login" className={styles.headerLink}>
+          <button className={styles.headerLink} onClick={openModal}>
             Log in
-          </Link>
+          </button>
         </div>
         <div className={styles.loginWrapper}>
           <Link to="/registration" className={styles.headerLinkRight}>
@@ -36,6 +42,11 @@ const Header = () => {
           </Link>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <Login onClose={closeModal} />
+        </Modal>
+      )}
     </header>
   );
 };

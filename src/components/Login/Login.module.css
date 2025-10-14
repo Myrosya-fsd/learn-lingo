@@ -1,0 +1,85 @@
+.login {
+  border-radius: 30px;
+  width: 565px;
+  height: 505px;
+  background-color: #fff;
+  padding: 64px;
+}
+
+.loginTopBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.titleForm {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  color: #121417;
+  margin-bottom: 20px;
+}
+
+.buttonClose {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: #fff;
+}
+
+.buttonClose:hover,
+.buttonClose:focus {
+  color: #f4c550;
+}
+
+.icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.titleText {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: rgba(18, 20, 23, 0.8);
+  margin-bottom: 40px;
+}
+
+.contactBlockInput {
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding: 16px 18px 16px 18px;
+  width: 438px;
+  height: 54px;
+  margin-bottom: 18px;
+}
+
+.contactBlockInputBt {
+  margin-bottom: 40px;
+}
+
+.loginBtn {
+  border-radius: 12px;
+  padding: 16px 16px;
+  width: 438px;
+  height: 60px;
+  background-color: #f4c550;
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 156%;
+  color: #121417;
+}
+
+.loginBtn:hover,
+.loginBtn:focus {
+  background-color: #ffdc86;
+  color: #ffffff;
+}

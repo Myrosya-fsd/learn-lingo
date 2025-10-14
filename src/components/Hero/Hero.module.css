@@ -48,9 +48,10 @@
   border: none;
 }
 
-.heroBtn:hover,
-.heroBtn:focus {
+.heroLink:hover,
+.heroLink:focus {
   background-color: #ffdc86;
+  color: #ffffff;
 }
 
 .img {
