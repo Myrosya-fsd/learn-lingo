@@ -56,7 +56,12 @@ const Header = () => {
       </div>
       {isModalOpen && (
         <Modal onClose={closeModal}>
-          {modalType === "login" && <Login onClose={closeModal} />}
+          {modalType === "login" && (
+            <Login
+              onClose={closeModal}
+              openRegistration={() => openModal("registration")}
+            />
+          )}
           {modalType === "registration" && (
             <Registration onClose={closeModal} />
           )}

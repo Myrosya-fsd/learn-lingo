@@ -1,39 +1,51 @@
 import { useState } from "react";
 import styles from "./Login.module.css";
+import { loginUser } from "../../firebaseAuth.js";
 
-const Login = ({ onClose }) => {
+const Login = ({ onClose, openRegistration }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [error, setError] = useState("");
 
+  // мінімальна валідація
   const validate = () => {
-    const newErrors = {};
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!emailRegex.test(email)) {
-      newErrors.email = "Please enter a valid email address";
+    if (!email.trim() || !password.trim()) {
+      setError("Будь ласка, заповніть усі поля.");
+      return false;
     }
-
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    if (!password.trim()) {
-      newErrors.password = "Password is required";
-    } else if (!passwordRegex.test(password)) {
-      newErrors.password =
-        "Password must contain at least 6 characters, letters and numbers";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setError("");
+    return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert(" Logged in successfully!");
-      // тут додати запит до сервера
-      onClose();
+
+    if (!validate()) return;
+
+    try {
+      await loginUser(email, password);
+      onClose(); // якщо все добре — закриваємо модальне вікно
+    } catch (err) {
+      console.error("Firebase login error:", err.code);
+
+      if (
+        err.code === "auth/user-not-found" ||
+        err.code === "auth/invalid-credential"
+      ) {
+        setError(
+          "Користувача з такими даними не існує. Будь ласка, зареєструйтесь."
+        );
+        setTimeout(() => {
+          onClose();
+          openRegistration();
+        }, 1500);
+      } else if (err.code === "auth/wrong-password") {
+        setError("Невірний пароль. Спробуйте ще раз.");
+      } else if (err.code === "auth/invalid-email") {
+        setError("Введіть правильний формат email.");
+      } else {
+        setError("Сталася помилка: " + err.message);
+      }
     }
   };
 
@@ -61,7 +73,6 @@ const Login = ({ onClose }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        {errors.email && <p className={styles.errorText}>{errors.email}</p>}
 
         <input
           className={`${styles.contactBlockInput} ${styles.contactBlockInputBt}`}
@@ -70,9 +81,8 @@ const Login = ({ onClose }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {errors.password && (
-          <p className={styles.errorText}>{errors.password}</p>
-        )}
+
+        {error && <p className={styles.errorText}>{error}</p>}
 
         <button type="submit" className={styles.loginBtn}>
           Log In

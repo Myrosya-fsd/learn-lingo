@@ -18,13 +18,11 @@ function App() {
   return (
     <>
       <div>
-        {user ? (
+        {user && (
           <>
             <h3>Привіт, {user.email}</h3>
             <button onClick={logoutUser}>Вийти</button>
           </>
-        ) : (
-          <p></p>
         )}
       </div>
 
@@ -40,15 +38,3 @@ function App() {
 }
 
 export default App;
-/*
-    <div>
-      {user ? (
-        <>
-          <h3>Привіт, {user.email}</h3>
-          <button onClick={logoutUser}>Вийти</button>
-        </>
-      ) : (
-        <p>Будь ласка, увійдіть</p>
-      )}
-    </div>
-*/
