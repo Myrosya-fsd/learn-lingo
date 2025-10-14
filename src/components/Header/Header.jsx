@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 import Login from "../Login/Login.jsx";
@@ -8,9 +7,17 @@ import Modal from "../Modal/Modal.jsx";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (type) => {
+    setModalType(type);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalType(null);
+  };
 
   return (
     <header className={styles.header}>
@@ -32,19 +39,27 @@ const Header = () => {
           <svg className={styles.icon} width="20" height="20">
             <use xlinkHref="/symbol-defs.svg#icon-log-in" />
           </svg>
-          <button className={styles.headerLink} onClick={openModal}>
+          <button
+            className={styles.headerLink}
+            onClick={() => openModal("login")}
+          >
             Log in
           </button>
         </div>
-        <div className={styles.loginWrapper}>
-          <Link to="/registration" className={styles.headerLinkRight}>
-            Registration
-          </Link>
-        </div>
+
+        <button
+          className={styles.headerLinkRight}
+          onClick={() => openModal("registration")}
+        >
+          Registration
+        </button>
       </div>
       {isModalOpen && (
         <Modal onClose={closeModal}>
-          <Login onClose={closeModal} />
+          {modalType === "login" && <Login onClose={closeModal} />}
+          {modalType === "registration" && (
+            <Registration onClose={closeModal} />
+          )}
         </Modal>
       )}
     </header>
