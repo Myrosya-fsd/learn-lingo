@@ -8,6 +8,9 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+//storageBucket: "learnlingo-1dd04.appspot.com",
+
 const firebaseConfig = {
   apiKey: "AIzaSyAudNKvSIhwWujpXeVN_WI0tY5k8ms9u1Q",
   authDomain: "learnlingo-1dd04.firebaseapp.com",

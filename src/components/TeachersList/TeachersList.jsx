@@ -28,7 +28,7 @@ export default function TeachersList() {
       experience: "5 years",
     };
     await addTeacher(newTeacher);
-    alert("Викладача додано ✅");
+    alert("Викладача додано ");
   };
 
   return (
