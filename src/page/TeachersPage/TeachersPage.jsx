@@ -40,7 +40,7 @@ export default function TeachersPage() {
   }, [language, level, price, teachers]);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className={styles.blockTeachers}>
       {/* --- Блок фільтрів --- */}
       <div className={styles.filterBlock}>
         <div className={styles.teachersLengvichBlock}>
@@ -98,47 +98,150 @@ export default function TeachersPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {filteredTeachers.length > 0 ? (
           filteredTeachers.map((t, i) => (
-            <div
-              key={i}
-              className="flex items-start gap-4 bg-white rounded-2xl shadow-md p-4"
-            >
+            <div key={i} className={styles.block}>
               <img
                 src={t.avatar_url}
                 alt={t.name || "Teacher"}
-                className="w-20 h-20 rounded-full object-cover border"
+                className={styles.photo}
               />
-              <div className="flex-1">
-                <h2 className="text-lg font-semibold">
-                  {t.name} {t.surname}
-                </h2>
-                <p className="text-gray-600 text-sm">
-                  Speaks:{" "}
-                  {Array.isArray(t.languages)
-                    ? t.languages.join(", ")
-                    : t.languages}
-                </p>
-                <p className="mt-2 text-sm text-gray-700">
-                  {t.lesson_info || "No lesson info provided."}
-                </p>
-                <p className="text-sm text-gray-500 mt-1">
-                  Lessons done: {t.lessons_done || 0}
-                </p>
-                <div className="flex items-center gap-2 mt-2">
-                  <Star className="w-4 h-4 text-yellow-500" />
-                  <span>{t.rating || "—"}</span>
-                  <span className="text-gray-500 text-sm">
-                    | {t.price_per_hour}$ / hour
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {(t.levels || []).map((lvl, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs bg-gray-100 border px-2 py-1 rounded-full"
-                    >
-                      {lvl}
+              <div>
+                <div className={styles.topBlox}>
+                  <p className={styles.text}>Languages</p>
+                  <div className={styles.textTop}>
+                    <svg className={styles.icon} width="16" height="16">
+                      <use xlinkHref="/symbol-defs.svg#icon-book-open" />
+                    </svg>
+                    <p className={styles.text}>Lessons online</p> |
+                  </div>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-family)",
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      lineHeight: "150%",
+                      color: "#121417",
+                      marginRight: "16px",
+                    }}
+                  >
+                    Lessons done: {t.lessons_done || 0}
+                  </p>
+                  |
+                  <div className={styles.blockRating}>
+                    <Star className={styles.star} />
+                    <span className={styles.spamRating}>
+                      Rating: {t.rating || "—"}
                     </span>
-                  ))}
+                    |
+                    <span className={styles.spamRating}>
+                      Price / 1 hour: {t.price_per_hour}$
+                    </span>
+                  </div>
+                  <svg className={styles.icon} width="26" height="26">
+                    <use xlinkHref="/symbol-defs.svg#icon-heart" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h2 className={styles.name}>
+                    {t.name} {t.surname}
+                  </h2>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-family)",
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      lineHeight: "150%",
+                      color: "#8a8a89",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    Speaks:{" "}
+                    <span
+                      style={{
+                        textDecoration: "underline",
+                        textDecorationSkipInk: "none",
+                        color: "#121417",
+                        fontStyle: "normal",
+                        background: "#ffffff",
+                      }}
+                    >
+                      {Array.isArray(t.languages)
+                        ? t.languages.join(", ")
+                        : t.languages}
+                    </span>
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-family)",
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      lineHeight: "150%",
+                      color: "#8a8a89",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    Lesson Info:
+                    <span
+                      style={{
+                        textDecorationSkipInk: "none",
+                        color: "#121417",
+                        fontStyle: "normal",
+                        background: "#ffffff",
+                      }}
+                    >
+                      {t.lesson_info || "No lesson info provided."}
+                    </span>
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-family)",
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      lineHeight: "150%",
+                      color: "#8a8a89",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    Conditions:
+                    <span
+                      style={{
+                        textDecorationSkipInk: "none",
+                        color: "#121417",
+                        fontStyle: "normal",
+                        background: "#ffffff",
+                      }}
+                    >
+                      {t.conditions || "No lesson info provided."}
+                    </span>
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-family)",
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      lineHeight: "150%",
+                      color: "#8a8a89",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    Experience
+                    <span
+                      style={{
+                        textDecorationSkipInk: "none",
+                        color: "#121417",
+                        fontStyle: "normal",
+                        background: "#ffffff",
+                      }}
+                    >
+                      {t.experience || "No lesson info provided."}
+                    </span>
+                  </p>
+                  <div className={styles.levelBlox}>
+                    {(t.levels || []).map((lvl, idx) => (
+                      <span key={idx} className={styles.level}>
+                        {lvl}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -148,6 +251,9 @@ export default function TeachersPage() {
             No teachers found for the selected filters.
           </p>
         )}
+      </div>
+      <div className={styles.btn}>
+        <button className={styles.loadMore}>Load more</button>
       </div>
     </div>
   );
