@@ -48,7 +48,7 @@
   border-radius: 24px;
   padding: 24px;
   width: 1184px;
-  height: 328px;
+  height: 100%;
   background-color: #fff;
   margin-bottom: 32px;
 }
@@ -167,4 +167,54 @@
   font-size: 18px;
   line-height: 156%;
   color: #121417;
+}
+
+.loadMore:hover,
+.loadMore:focus {
+  background-color: #ffdc86;
+  color: #ffffff;
+}
+/*-----------*/
+.topBlox {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.topBlox > .text:first-of-type {
+  margin-right: 192px;
+}
+
+.blockRating {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* між усіма елементами всередині */
+  margin-left: 16px; /* відступ після "|" */
+  margin-right: 16px; /* перед ❤️ */
+}
+
+.topBlox > p[style] {
+  margin-right: 16px;
+}
+
+.topBlox > svg:last-of-type {
+  margin-left: 16px;
+}
+
+/*------------------*/
+.readMore {
+  background: none;
+  border: none;
+  color: #3056d3;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin-bottom: 32px;
+  transition: color 0.3s;
+}
+
+.readMore:hover {
+  color: #1e40af;
 }

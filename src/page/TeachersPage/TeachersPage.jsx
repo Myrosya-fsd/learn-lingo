@@ -12,13 +12,22 @@ export default function TeachersPage() {
   const [level, setLevel] = useState("A1 Beginner");
   const [price, setPrice] = useState(25);
 
+  const [visibleCount, setVisibleCount] = useState(3);
+
   // --- Отримати дані з Firebase ---
+  //useEffect(() => {
+  //const fetchData = async () => {
+  //const data = await getTeachers();
+  //console.log(" Firebase data:", data);
+  // setTeachers(data);
+  //setFilteredTeachers(data);
+  //};
+  //fetchData();
+  //}, []);
   useEffect(() => {
     const fetchData = async () => {
       const data = await getTeachers();
-      console.log("🔥 Firebase data:", data);
       setTeachers(data);
-      setFilteredTeachers(data);
     };
     fetchData();
   }, []);
@@ -39,9 +48,11 @@ export default function TeachersPage() {
     setFilteredTeachers(filtered);
   }, [language, level, price, teachers]);
 
+  // --- Обчислення відображуваних викладачів ---
+  const visibleTeachers = filteredTeachers.slice(0, visibleCount);
+
   return (
     <div className={styles.blockTeachers}>
-      {/* --- Блок фільтрів --- */}
       <div className={styles.filterBlock}>
         <div className={styles.teachersLengvichBlock}>
           <h3 className={styles.teachersTitle}>Languages</h3>
@@ -93,11 +104,10 @@ export default function TeachersPage() {
           </select>
         </div>
       </div>
-
       {/* --- Список викладачів --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        {filteredTeachers.length > 0 ? (
-          filteredTeachers.map((t, i) => (
+        {visibleTeachers.length > 0 ? (
+          visibleTeachers.map((t, i) => (
             <div key={i} className={styles.block}>
               <img
                 src={t.avatar_url}
@@ -213,28 +223,48 @@ export default function TeachersPage() {
                       {t.conditions || "No lesson info provided."}
                     </span>
                   </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-family)",
-                      fontWeight: 500,
-                      fontSize: "16px",
-                      lineHeight: "150%",
-                      color: "#8a8a89",
-                      marginBottom: "8px",
-                    }}
+                  <button
+                    className={styles.readMore}
+                    onClick={() =>
+                      setFilteredTeachers((prev) =>
+                        prev.map((teacher, idx) =>
+                          idx === i
+                            ? {
+                                ...teacher,
+                                showExperience: !teacher.showExperience,
+                              }
+                            : teacher
+                        )
+                      )
+                    }
                   >
-                    Experience
-                    <span
+                    {t.showExperience ? "Hide" : "Read more"}{" "}
+                  </button>
+                  {t.showExperience && (
+                    <p
                       style={{
-                        textDecorationSkipInk: "none",
-                        color: "#121417",
-                        fontStyle: "normal",
-                        background: "#ffffff",
+                        fontFamily: "var(--font-family)",
+                        fontWeight: 500,
+                        fontSize: "16px",
+                        lineHeight: "150%",
+                        color: "#8a8a89",
+                        marginBottom: "8px",
+                        marginTop: "8px",
                       }}
                     >
-                      {t.experience || "No lesson info provided."}
-                    </span>
-                  </p>
+                      Experience:
+                      <span
+                        style={{
+                          textDecorationSkipInk: "none",
+                          color: "#121417",
+                          fontStyle: "normal",
+                          background: "#ffffff",
+                        }}
+                      >
+                        {t.experience || "No lesson info provided."}
+                      </span>
+                    </p>
+                  )}
                   <div className={styles.levelBlox}>
                     {(t.levels || []).map((lvl, idx) => (
                       <span key={idx} className={styles.level}>
@@ -252,9 +282,16 @@ export default function TeachersPage() {
           </p>
         )}
       </div>
-      <div className={styles.btn}>
-        <button className={styles.loadMore}>Load more</button>
-      </div>
+      {teachers.length > visibleCount && (
+        <div className={styles.btn}>
+          <button
+            className={styles.loadMore}
+            onClick={() => setVisibleCount((prev) => prev + 3)}
+          >
+            Load more
+          </button>
+        </div>
+      )}
     </div>
   );
 }
