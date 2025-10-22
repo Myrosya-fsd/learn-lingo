@@ -203,18 +203,39 @@
 
 /*------------------*/
 .readMore {
-  background: none;
-  border: none;
-  color: #3056d3;
-  font-weight: 600;
+  font-family: var(--font-family);
+  font-weight: 500;
   font-size: 16px;
-  cursor: pointer;
+  line-height: 150%;
   text-decoration: underline;
-  padding: 0;
+  text-decoration-skip-ink: none;
+  color: #121417;
+  background-color: #fff;
+  border: none;
   margin-bottom: 32px;
-  transition: color 0.3s;
 }
 
-.readMore:hover {
-  color: #1e40af;
+.btnBook {
+  border-radius: 12px;
+  padding: 16px 48px;
+  width: 232px;
+  height: 60px;
+  background-color: #f4c550;
+  border: none;
+  margin-top: 32px;
+}
+
+.btnBook:hover,
+.btnBook:focus {
+  background-color: #ffdc86;
+  color: #ffffff;
+}
+
+.iconStar {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
 }

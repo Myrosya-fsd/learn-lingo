@@ -10,20 +10,11 @@ export default function TeachersPage() {
   // --- Фільтри ---
   const [language, setLanguage] = useState("English");
   const [level, setLevel] = useState("A1 Beginner");
-  const [price, setPrice] = useState(25);
+  const [price, setPrice] = useState("");
 
   const [visibleCount, setVisibleCount] = useState(3);
 
   // --- Отримати дані з Firebase ---
-  //useEffect(() => {
-  //const fetchData = async () => {
-  //const data = await getTeachers();
-  //console.log(" Firebase data:", data);
-  // setTeachers(data);
-  //setFilteredTeachers(data);
-  //};
-  //fetchData();
-  //}, []);
   useEffect(() => {
     const fetchData = async () => {
       const data = await getTeachers();
@@ -38,11 +29,11 @@ export default function TeachersPage() {
       const langs = Array.isArray(t.languages) ? t.languages : [];
       const lvls = Array.isArray(t.levels) ? t.levels : [];
 
-      return (
-        langs.includes(language) &&
-        lvls.includes(level) &&
-        Number(t.price_per_hour) === Number(price)
-      );
+      const matchLanguage = !language || langs.includes(language);
+      const matchLevel = !level || lvls.includes(level);
+      const matchPrice = !price || Number(t.price_per_hour) === Number(price);
+
+      return matchLanguage && matchLevel && matchPrice;
     });
 
     setFilteredTeachers(filtered);
@@ -95,6 +86,7 @@ export default function TeachersPage() {
             onChange={(e) => setPrice(Number(e.target.value))}
             className={styles.border}
           >
+            <option value="">All prices</option>
             <option value={25}>25 $</option>
             <option value={27}>27 $</option>
             <option value={28}>28 $</option>
@@ -137,7 +129,9 @@ export default function TeachersPage() {
                   </p>
                   |
                   <div className={styles.blockRating}>
-                    <Star className={styles.star} />
+                    <svg className={styles.iconStar} width="16" height="16">
+                      <use xlinkHref="/public/symbol-defs.svg#icon-star" />
+                    </svg>
                     <span className={styles.spamRating}>
                       Rating: {t.rating || "—"}
                     </span>
@@ -241,30 +235,76 @@ export default function TeachersPage() {
                     {t.showExperience ? "Hide" : "Read more"}{" "}
                   </button>
                   {t.showExperience && (
-                    <p
-                      style={{
-                        fontFamily: "var(--font-family)",
-                        fontWeight: 500,
-                        fontSize: "16px",
-                        lineHeight: "150%",
-                        color: "#8a8a89",
-                        marginBottom: "8px",
-                        marginTop: "8px",
-                      }}
-                    >
-                      Experience:
-                      <span
+                    <>
+                      <p
                         style={{
-                          textDecorationSkipInk: "none",
-                          color: "#121417",
-                          fontStyle: "normal",
-                          background: "#ffffff",
+                          fontFamily: "var(--font-family)",
+                          fontWeight: 500,
+                          fontSize: "16px",
+                          lineHeight: "150%",
+                          color: "#8a8a89",
+                          marginBottom: "8px",
+                          marginTop: "8px",
                         }}
                       >
-                        {t.experience || "No lesson info provided."}
-                      </span>
-                    </p>
+                        Experience:
+                        <span
+                          style={{
+                            textDecorationSkipInk: "none",
+                            color: "#121417",
+                            fontStyle: "normal",
+                            background: "#ffffff",
+                          }}
+                        >
+                          {t.experience || "No lesson info provided."}
+                        </span>
+                      </p>
+
+                      {/* Reviews */}
+                      <div style={{ marginTop: "16px" }}>
+                        {Array.isArray(t.reviews) && t.reviews.length > 0 ? (
+                          t.reviews.map((review, idx) => (
+                            <div
+                              key={idx}
+                              style={{
+                                padding: "12px 16px",
+                                marginBottom: "12px",
+                              }}
+                            >
+                              <p style={{ fontWeight: 600, color: "#121417" }}>
+                                {review.reviewer_name}
+                                <svg className={styles.iconStar}>
+                                  <use xlinkHref="/public/symbol-defs.svg#icon-star" />
+                                </svg>
+                                {review.reviewer_rating}
+                              </p>
+                              <p style={{ marginTop: "4px", color: "#555" }}>
+                                {review.comment}
+                              </p>
+                            </div>
+                          ))
+                        ) : (
+                          <p
+                            style={{
+                              fontFamily: "var(--font-family)",
+                              fontWeight: 500,
+                              fontSize: "16px",
+                              lineHeight: "150%",
+                              color: "#8a8a89",
+                            }}
+                          >
+                            No reviews provided.
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Кнопка */}
+                      <button className={styles.btnBook}>
+                        Book trial lesson
+                      </button>
+                    </>
                   )}
+
                   <div className={styles.levelBlox}>
                     {(t.levels || []).map((lvl, idx) => (
                       <span key={idx} className={styles.level}>
@@ -282,11 +322,14 @@ export default function TeachersPage() {
           </p>
         )}
       </div>
-      {teachers.length > visibleCount && (
+      {visibleCount < filteredTeachers.length && (
         <div className={styles.btn}>
           <button
             className={styles.loadMore}
-            onClick={() => setVisibleCount((prev) => prev + 3)}
+            onClick={(e) => {
+              e.currentTarget.blur();
+              setVisibleCount((prev) => prev + 3);
+            }}
           >
             Load more
           </button>
