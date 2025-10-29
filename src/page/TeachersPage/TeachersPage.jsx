@@ -11,6 +11,8 @@ export default function TeachersPage() {
   const [language, setLanguage] = useState("English");
   const [level, setLevel] = useState("A1 Beginner");
   const [price, setPrice] = useState("");
+  const [favorites, setFavorites] = useState([]);
+  const [selectedLevels, setSelectedLevels] = useState({});
 
   const [visibleCount, setVisibleCount] = useState(3);
 
@@ -18,7 +20,12 @@ export default function TeachersPage() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getTeachers();
-      setTeachers(data);
+      // Якщо Firebase повертає об'єкти без id — додаємо штучний (наприклад, з index)
+      const dataWithIds = data.map((t, index) => ({
+        ...t,
+        id: t.id || index, // унікальний ID навіть якщо з бази його немає
+      }));
+      setTeachers(dataWithIds);
     };
     fetchData();
   }, []);
@@ -41,6 +48,22 @@ export default function TeachersPage() {
 
   // --- Обчислення відображуваних викладачів ---
   const visibleTeachers = filteredTeachers.slice(0, visibleCount);
+
+  const toggleFavorite = (id) => {
+    setFavorites(
+      (prev) =>
+        prev.includes(id)
+          ? prev.filter((favId) => favId !== id) // якщо вже є — видаляємо
+          : [...prev, id] // якщо нема — додаємо
+    );
+  };
+
+  const handleLevelClick = (teacherId, lvl) => {
+    setSelectedLevels((prev) => ({
+      ...prev,
+      [teacherId]: prev[teacherId] === lvl ? null : lvl, // якщо натиснули вдруге — скидаємо
+    }));
+  };
 
   return (
     <div className={styles.blockTeachers}>
@@ -140,7 +163,14 @@ export default function TeachersPage() {
                       Price / 1 hour: {t.price_per_hour}$
                     </span>
                   </div>
-                  <svg className={styles.icon} width="26" height="26">
+                  <svg
+                    className={`${styles.icon} ${
+                      favorites.includes(t.id) ? styles.active : ""
+                    }`}
+                    width="26"
+                    height="26"
+                    onClick={() => toggleFavorite(t.id)}
+                  >
                     <use xlinkHref="/symbol-defs.svg#icon-heart" />
                   </svg>
                 </div>
@@ -260,7 +290,6 @@ export default function TeachersPage() {
                         </span>
                       </p>
 
-                      {/* Reviews */}
                       <div style={{ marginTop: "16px" }}>
                         {Array.isArray(t.reviews) && t.reviews.length > 0 ? (
                           t.reviews.map((review, idx) => (
@@ -297,21 +326,36 @@ export default function TeachersPage() {
                           </p>
                         )}
                       </div>
-
-                      {/* Кнопка */}
+                      <div className={styles.levelBlox}>
+                        {(t.levels || []).map((lvl, idx) => (
+                          <span
+                            key={idx}
+                            className={`${styles.level} ${
+                              selectedLevels[t.id] === lvl
+                                ? styles.activeLevel
+                                : ""
+                            }`}
+                            onClick={() => handleLevelClick(t.id, lvl)}
+                          >
+                            {lvl}
+                          </span>
+                        ))}
+                      </div>
                       <button className={styles.btnBook}>
                         Book trial lesson
                       </button>
                     </>
                   )}
 
-                  <div className={styles.levelBlox}>
-                    {(t.levels || []).map((lvl, idx) => (
-                      <span key={idx} className={styles.level}>
-                        {lvl}
-                      </span>
-                    ))}
-                  </div>
+                  {!t.showExperience && (
+                    <div className={styles.levelBlox2}>
+                      {(t.levels || []).map((lvl, idx) => (
+                        <span key={idx} className={styles.level2}>
+                          {lvl}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
