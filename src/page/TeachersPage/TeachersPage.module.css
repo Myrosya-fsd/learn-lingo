@@ -164,11 +164,13 @@
 
 .level:hover {
   background-color: #ffc531;
+  color: #121417;
   border-color: #ffc531;
 }
 
 .activeLevel {
   background-color: #ffc531;
+  color: #121417;
   border-color: #ffc531;
 }
 
@@ -195,7 +197,7 @@
   background-color: #ffdc86;
   color: #ffffff;
 }
-/*-----------*/
+
 .topBlox {
   display: flex;
   align-items: center;
@@ -209,9 +211,9 @@
 .blockRating {
   display: flex;
   align-items: center;
-  gap: 16px; /* між усіма елементами всередині */
-  margin-left: 16px; /* відступ після "|" */
-  margin-right: 16px; /* перед ❤️ */
+  gap: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .topBlox > p[style] {
@@ -222,7 +224,6 @@
   margin-left: 16px;
 }
 
-/*------------------*/
 .readMore {
   font-family: var(--font-family);
   font-weight: 500;
@@ -239,7 +240,6 @@
 .btnBook {
   border-radius: 12px;
   padding: 16px 48px;
-  width: 232px;
   height: 60px;
   background-color: #f4c550;
   border: none;

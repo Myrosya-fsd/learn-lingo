@@ -7,7 +7,6 @@ const Login = ({ onClose, openRegistration }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // мінімальна валідація
   const validate = () => {
     if (!email.trim() || !password.trim()) {
       setError("Будь ласка, заповніть усі поля.");
@@ -24,7 +23,7 @@ const Login = ({ onClose, openRegistration }) => {
 
     try {
       await loginUser(email, password);
-      onClose(); // якщо все добре — закриваємо модальне вікно
+      onClose();
     } catch (err) {
       console.error("Firebase login error:", err.code);
 

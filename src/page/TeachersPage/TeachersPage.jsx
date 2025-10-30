@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { getTeachers } from "../../firebaseTeachers";
-import { Star } from "lucide-react";
 import styles from "./TeachersPage.module.css";
 
 export default function TeachersPage() {
   const [teachers, setTeachers] = useState([]);
   const [filteredTeachers, setFilteredTeachers] = useState([]);
 
-  // --- Фільтри ---
   const [language, setLanguage] = useState("English");
   const [level, setLevel] = useState("A1 Beginner");
   const [price, setPrice] = useState("");
@@ -16,16 +14,10 @@ export default function TeachersPage() {
 
   const [visibleCount, setVisibleCount] = useState(3);
 
-  // --- Отримати дані з Firebase ---
   useEffect(() => {
     const fetchData = async () => {
       const data = await getTeachers();
-      // Якщо Firebase повертає об'єкти без id — додаємо штучний (наприклад, з index)
-      const dataWithIds = data.map((t, index) => ({
-        ...t,
-        id: t.id || index, // унікальний ID навіть якщо з бази його немає
-      }));
-      setTeachers(dataWithIds);
+      setTeachers(data);
     };
     fetchData();
   }, []);
@@ -46,24 +38,33 @@ export default function TeachersPage() {
     setFilteredTeachers(filtered);
   }, [language, level, price, teachers]);
 
-  // --- Обчислення відображуваних викладачів ---
   const visibleTeachers = filteredTeachers.slice(0, visibleCount);
 
   const toggleFavorite = (id) => {
-    setFavorites(
-      (prev) =>
-        prev.includes(id)
-          ? prev.filter((favId) => favId !== id) // якщо вже є — видаляємо
-          : [...prev, id] // якщо нема — додаємо
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
     );
   };
 
   const handleLevelClick = (teacherId, lvl) => {
     setSelectedLevels((prev) => ({
       ...prev,
-      [teacherId]: prev[teacherId] === lvl ? null : lvl, // якщо натиснули вдруге — скидаємо
+      [teacherId]: prev[teacherId] === lvl ? null : lvl,
     }));
   };
+
+  useEffect(() => {
+    // Коли сторінка завантажується — отримуємо збережені улюблені
+    const savedFavorites = localStorage.getItem("favorites");
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Коли favorites змінюється — зберігаємо у localStorage
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   return (
     <div className={styles.blockTeachers}>
@@ -119,7 +120,7 @@ export default function TeachersPage() {
           </select>
         </div>
       </div>
-      {/* --- Список викладачів --- */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {visibleTeachers.length > 0 ? (
           visibleTeachers.map((t, i) => (
