@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTeachers } from "../../firebaseTeachers";
+import BookTrialModal from "../../components/BookTrialModal/BookTrialModal.jsx";
 import styles from "./TeachersPage.module.css";
 
 export default function TeachersPage() {
@@ -13,6 +14,8 @@ export default function TeachersPage() {
   const [selectedLevels, setSelectedLevels] = useState({});
 
   const [visibleCount, setVisibleCount] = useState(3);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -342,9 +345,20 @@ export default function TeachersPage() {
                           </span>
                         ))}
                       </div>
-                      <button className={styles.btnBook}>
+                      <button
+                        className={styles.btnBook}
+                        onClick={() => {
+                          setSelectedTeacher(t);
+                          setIsModalOpen(true);
+                        }}
+                      >
                         Book trial lesson
                       </button>
+                      <BookTrialModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        teacher={selectedTeacher}
+                      />
                     </>
                   )}
 
