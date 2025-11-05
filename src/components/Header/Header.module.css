@@ -8,11 +8,6 @@
 .nav {
   display: flex;
   gap: 28px;
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 125%;
-  color: #121417;
 }
 
 .authContainer {
@@ -60,6 +55,39 @@ span {
 
 .nav a,
 .nav a:visited {
-  color: #121417;
   text-decoration: none;
+}
+
+.link {
+  font-size: 16px;
+  line-height: 125%;
+  color: #121417;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #ffdc86;
+}
+
+.active {
+  color: #f4c550;
+}
+
+.hello {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+}
+
+.btnClos {
+  border-radius: 8px;
+  padding: 3px 28px;
+  background-color: #121417;
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 156%;
+  color: #ffffff;
 }

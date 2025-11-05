@@ -1,6 +1,6 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { getCurrentUser, logoutUser } from "./firebaseAuth";
+import { getCurrentUser } from "./firebaseAuth";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header.jsx";
 import HomePage from "./page/HomePage/HomePage.jsx";
@@ -17,16 +17,8 @@ function App() {
 
   return (
     <>
-      <div>
-        {user && (
-          <>
-            <h3>Привіт, {user.email}</h3>
-            <button onClick={logoutUser}>Вийти</button>
-          </>
-        )}
-      </div>
+      <Header user={user} />
 
-      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/teachers" element={<TeachersPage />} />

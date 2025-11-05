@@ -64,6 +64,7 @@ const Registration = ({ onClose }) => {
           className={styles.contactBlockInput}
           type="name"
           placeholder="Name"
+          value={name}
         />
 
         <input

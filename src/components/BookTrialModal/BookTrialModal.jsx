@@ -9,7 +9,7 @@ const BookTrialModal = ({ isOpen, onClose, teacher }) => {
       <div className={styles.modal}>
         <button className={styles.close} onClick={onClose}>
           <svg className={styles.icon} width="32" height="32">
-            <use xlinkHref="../../../public/symbol-defs.svg#icon-x" />
+            <use xlinkHref="/public/symbol-defs.svg#icon-x" />
           </svg>
         </button>
 
