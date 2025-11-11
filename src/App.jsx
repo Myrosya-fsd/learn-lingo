@@ -7,6 +7,7 @@ import HomePage from "./page/HomePage/HomePage.jsx";
 import TeachersPage from "./page/TeachersPage/TeachersPage.jsx";
 import Login from "./components/Login/Login.jsx";
 import Registration from "./components/Registration/Registration.jsx";
+import FavoritesPage from "./page/FavoritesPage/FavoritesPage.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/teachers" element={<TeachersPage />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
       </Routes>

@@ -18,7 +18,7 @@ export const registerUser = async (email, password) => {
       password
     );
     const user = userCredential.user;
-    console.log("User created:", user);
+    //console.log("User created:", user);
 
     await set(ref(db, "users/" + user.uid), {
       email: user.email,

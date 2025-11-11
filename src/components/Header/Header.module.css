@@ -79,15 +79,3 @@ span {
   align-items: center;
   gap: 28px;
 }
-
-.btnClos {
-  border-radius: 8px;
-  padding: 3px 28px;
-  background-color: #121417;
-  border: none;
-  font-family: var(--font-family);
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 156%;
-  color: #ffffff;
-}

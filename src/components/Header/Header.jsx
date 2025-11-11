@@ -49,6 +49,17 @@ const Header = ({ user }) => {
         >
           Teachers
         </NavLink>
+
+        {user && (
+          <NavLink
+            to="/favorites"
+            className={({ isActive }) =>
+              `${styles.link} ${isActive ? styles.active : ""}`
+            }
+          >
+            Favorites
+          </NavLink>
+        )}
       </nav>
 
       {/* Якщо користувач не залогінений */}
@@ -79,9 +90,14 @@ const Header = ({ user }) => {
       {user && (
         <div className={styles.hello}>
           <h3 className={styles.helloText}>Hello, {user.email}</h3>
-          <button onClick={logoutUser} className={styles.btnClos}>
-            Exit
-          </button>
+          <div className={styles.loginWrapper}>
+            <svg className={styles.icon} width="20" height="20">
+              <use xlinkHref="/symbol-defs.svg#icon-log-in" />
+            </svg>
+            <button onClick={logoutUser} className={styles.headerLink}>
+              Log Out
+            </button>
+          </div>
         </div>
       )}
 

@@ -17,6 +17,9 @@ export default function TeachersPage() {
 
   const [visibleCount, setVisibleCount] = useState(3);
 
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getTeachers();
@@ -62,21 +65,38 @@ export default function TeachersPage() {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
+  const showPopupMessage = (message) => {
+    setPopupMessage(message);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 2000);
+  };
+
   const toggleFavorite = (id) => {
     if (!user) {
-      alert("Please log in to add teachers to favorites.");
+      showPopupMessage("Please log in to add favorites");
       return;
     }
 
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
-    );
+    setFavorites((prev) => {
+      const isFav = prev.includes(id);
+      const updated = isFav
+        ? prev.filter((favId) => favId !== id)
+        : [...prev, id];
+
+      showPopupMessage(isFav ? "Removed from favorites" : "Added to favorites");
+      return updated;
+    });
   };
 
   const visibleTeachers = filteredTeachers.slice(0, visibleCount);
 
   return (
     <div className={styles.blockTeachers}>
+      {showPopup && (
+        <div className={`${styles.popup} ${showPopup ? styles.show : ""}`}>
+          {popupMessage}
+        </div>
+      )}
       <div className={styles.filterBlock}>
         <div className={styles.teachersLengvichBlock}>
           <h3 className={styles.teachersTitle}>Languages</h3>
