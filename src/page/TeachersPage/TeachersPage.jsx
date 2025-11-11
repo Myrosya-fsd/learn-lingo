@@ -20,6 +20,8 @@ export default function TeachersPage() {
   const [popupMessage, setPopupMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
+  const [priceOptions, setPriceOptions] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getTeachers();
@@ -64,6 +66,13 @@ export default function TeachersPage() {
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
+
+  useEffect(() => {
+    // Формуємо унікальні ціни з викладачів
+    const prices = teachers.map((t) => t.price_per_hour);
+    const uniquePrices = [...new Set(prices)].sort((a, b) => a - b);
+    setPriceOptions(uniquePrices);
+  }, [teachers]);
 
   const showPopupMessage = (message) => {
     setPopupMessage(message);
@@ -140,12 +149,11 @@ export default function TeachersPage() {
             className={styles.border}
           >
             <option value="">All prices</option>
-            <option value={25}>25 $</option>
-            <option value={27}>27 $</option>
-            <option value={28}>28 $</option>
-            <option value={30}>30 $</option>
-            <option value={32}>32 $</option>
-            <option value={35}>35 $</option>
+            {priceOptions.map((p) => (
+              <option key={`price-${p}`} value={p}>
+                {p} $
+              </option>
+            ))}
           </select>
         </div>
       </div>

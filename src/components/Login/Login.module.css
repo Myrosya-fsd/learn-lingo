@@ -56,10 +56,11 @@
 .contactBlockInput {
   border: 1px solid rgba(18, 20, 23, 0.1);
   border-radius: 12px;
-  padding: 16px 18px 16px 18px;
+  padding: 16px 18px;
   width: 438px;
   height: 54px;
   margin-bottom: 18px;
+  box-sizing: border-box;
 }
 
 .contactBlockInputBt {
@@ -84,4 +85,36 @@
 .loginBtn:focus {
   background-color: #ffdc86;
   color: #ffffff;
+}
+
+.iconEyye {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: #fff;
+}
+
+.eyeButton {
+  background-color: #fff;
+  border: none;
+}
+
+.wrapper {
+  position: relative;
+}
+.eyeButton {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login input.contactBlockInput {
+  width: 438px !important;
 }

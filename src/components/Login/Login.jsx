@@ -6,6 +6,7 @@ const Login = ({ onClose, openRegistration }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const validate = () => {
     if (!email.trim() || !password.trim()) {
@@ -72,15 +73,31 @@ const Login = ({ onClose, openRegistration }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <div className={styles.wrapper}>
+          <input
+            className={`${styles.contactBlockInput} ${styles.contactBlockInputBt}`}
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <input
-          className={`${styles.contactBlockInput} ${styles.contactBlockInputBt}`}
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
+          <button
+            type="button"
+            className={styles.eyeButton}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <svg className={styles.iconEyye} width="32" height="32">
+                <use xlinkHref="/symbol-defs-2.svg#icon-eye" />
+              </svg>
+            ) : (
+              <svg className={styles.iconEyye} width="32" height="32">
+                <use xlinkHref="/symbol-defs-2.svg#icon-eye-off" />
+              </svg>
+            )}
+          </button>
+        </div>
         {error && <p className={styles.errorText}>{error}</p>}
 
         <button type="submit" className={styles.loginBtn}>
