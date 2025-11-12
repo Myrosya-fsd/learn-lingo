@@ -163,7 +163,6 @@ export default function TeachersCard({ teacher, isFavorite, toggleFavorite }) {
                   marginTop: "8px",
                 }}
               >
-                Experience:
                 <span
                   style={{
                     textDecorationSkipInk: "none",
