@@ -6,6 +6,7 @@ const Registration = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const validate = () => {
     const newErrors = {};
@@ -74,13 +75,31 @@ const Registration = ({ onClose }) => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input
-          className={`${styles.contactBlockInput} ${styles.contactBlockInputBt}`}
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className={styles.wrapper}>
+          <input
+            className={`${styles.contactBlockInput} ${styles.contactBlockInputBt}`}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <button
+            type="button"
+            className={styles.eyeButton}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <svg className={styles.iconEyye} width="20" height="20">
+                <use xlinkHref="/symbol-defs-2.svg#icon-eye" />
+              </svg>
+            ) : (
+              <svg className={styles.iconEyye} width="20" height="20">
+                <use xlinkHref="/symbol-defs-2.svg#icon-eye-off" />
+              </svg>
+            )}
+          </button>
+        </div>
         {errors.password && (
           <p className={styles.errorText}>{errors.password}</p>
         )}

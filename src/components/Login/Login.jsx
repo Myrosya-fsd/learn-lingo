@@ -88,11 +88,11 @@ const Login = ({ onClose, openRegistration }) => {
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
-              <svg className={styles.iconEyye} width="32" height="32">
+              <svg className={styles.iconEyye} width="20" height="20">
                 <use xlinkHref="/symbol-defs-2.svg#icon-eye" />
               </svg>
             ) : (
-              <svg className={styles.iconEyye} width="32" height="32">
+              <svg className={styles.iconEyye} width="20" height="20">
                 <use xlinkHref="/symbol-defs-2.svg#icon-eye-off" />
               </svg>
             )}

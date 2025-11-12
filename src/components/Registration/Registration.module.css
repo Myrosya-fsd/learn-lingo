@@ -88,3 +88,50 @@
 .registration input.contactBlockInput {
   width: 438px !important;
 }
+
+.wrapper {
+  position: relative;
+  margin-bottom: 40px;
+  height: 54px;
+}
+
+.contactBlockInput {
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding: 16px 50px 16px 18px;
+  width: 438px;
+  height: 54px;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.contactBlockInputBt {
+  margin-bottom: 40px;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 17px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  background-color: #fff;
+  border: none;
+}
+
+.iconEyye {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: #fff;
+  flex-shrink: 0;
+}
