@@ -60,20 +60,28 @@ export default function TeachersPage() {
 
   const handleFavorite = (id) => {
     if (!user) {
+      // 1. Спочатку перевіряємо, чи користувач залогінений
       showPopupMessage("Please log in to add favorites");
       return;
     }
+
+    // 2. Додаємо або видаляємо фаворита через Redux
+    const isFav = favorites.includes(id); // поточний стан
     dispatch(toggleFavorite(id));
-    showPopupMessage(
-      favorites.includes(id) ? "Removed from favorites" : "Added to favorites"
-    );
+
+    // 3. Відразу показуємо popup
+    showPopupMessage(isFav ? "Removed from favorites" : "Added to favorites");
   };
 
   const visibleTeachers = filteredTeachers.slice(0, visibleCount);
 
   return (
     <div className={styles.blockTeachers}>
-      {showPopup && <div className={styles.popup}>{popupMessage}</div>}
+      {showPopup && (
+        <div className={`${styles.popup} ${showPopup ? styles.show : ""}`}>
+          {popupMessage}
+        </div>
+      )}
 
       {/* --- Filters --- */}
       <div className={styles.filterBlock}>

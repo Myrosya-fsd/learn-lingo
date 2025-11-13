@@ -13,7 +13,6 @@ export default function FavoritesPage() {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    // Отримуємо дані користувача (щоб перевірити, чи він залогінений)
     const auth = getAuth();
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -22,7 +21,6 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-    // Отримуємо список викладачів
     const fetchTeachers = async () => {
       const data = await getTeachers();
       setTeachers(data);
@@ -31,12 +29,13 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-    // Завантажуємо favorites
+    if (!user) return;
+
     const savedFavorites = localStorage.getItem("favorites");
     if (savedFavorites) {
       setFavorites(JSON.parse(savedFavorites));
     }
-  }, []);
+  }, [user]);
 
   const showPopupMessage = (message) => {
     setPopupMessage(message);
@@ -44,7 +43,7 @@ export default function FavoritesPage() {
     setTimeout(() => setShowPopup(false), 2000);
   };
 
-  const toggleFavorite = (id) => {
+  const handleToggleFavorite = (id) => {
     if (!user) {
       showPopupMessage("Please log in to manage favorites");
       return;
@@ -62,7 +61,21 @@ export default function FavoritesPage() {
     });
   };
 
-  // Фільтруємо лише викладачів, ID яких у favorites
+  if (!user) {
+    return (
+      <div className={styles.blockTeachers}>
+        <p className="text-center text-gray-500 mt-10">
+          Please log in to view your favorite teachers.
+        </p>
+        {showPopup && (
+          <div className={`${styles.popup} ${showPopup ? styles.show : ""}`}>
+            {popupMessage}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   const favoriteTeachers = teachers.filter((t) => favorites.includes(t.id));
 
   return (
@@ -80,7 +93,7 @@ export default function FavoritesPage() {
               key={t.id}
               teacher={t}
               isFavorite={favorites.includes(t.id)}
-              toggleFavorite={toggleFavorite}
+              toggleFavorite={handleToggleFavorite}
             />
           ))}
         </div>
