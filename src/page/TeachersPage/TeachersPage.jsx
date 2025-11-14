@@ -146,7 +146,7 @@ export default function TeachersPage() {
             <TeachersCard
               key={t.id}
               teacher={t}
-              isFavorite={favorites.includes(t.id)}
+              isFavorite={user ? favorites.includes(t.id) : false}
               toggleFavorite={handleFavorite}
             />
           ))

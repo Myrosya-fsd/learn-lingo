@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getTeachers } from "../../firebaseTeachers";
 import TeachersCard from "../../components/TeachersCard/TeachersCard.jsx";
 import styles from "./TeachersPage.module.css";
@@ -60,6 +61,19 @@ export default function FavoritesPage() {
       return updated;
     });
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/teachers");
+      }
+    });
+
+    return () => unsub();
+  }, [navigate]);
 
   if (!user) {
     return (

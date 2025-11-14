@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Hero.module.css";
-import hero1x from "../../assets/img/img-hero-1x.jpg";
-import hero2x from "../../assets/img/img-hero-2x.jpg";
+import hero1x from "../../../public/img/img-hero-1x.jpg";
+import hero2x from "../../../public/img/img-hero-2x.jpg";
 
 const Hero = () => {
   return (
