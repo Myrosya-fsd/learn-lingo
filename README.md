@@ -1,16 +1,47 @@
-# React + Vite
+# Learn Lingo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 💼 Project Overview:
 
-Currently, two official plugins are available:
+**Learn Lingo** is a cutting-edge web application designed to connect users with language tutors from around the globe.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Tech Stack:
 
-## React Compiler
+- ⚛️**React** — for building dynamic user interfaces.
+- 🎯**Redux Toolkit** — for state management for better performance and scalability.
+- 🖌️**CSS Modules** — scoped styling for better maintainability.
+- 🗃 **Redux Persist** - Ensuring state persistence across sessions.
+- 🔥 **Firebase** - Powering authentication and real-time database services.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## 🚀 Quick Start:
 
-## Expanding the ESLint configuration
+Follow these steps to set up and run the project locally:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Clone the repository:
+
+git clone https://github.com/Myrosya-fsd/learn-lingo
+Navigate to the project directory:
+
+Navigate to the project directory:
+cd learn-lingo
+
+npm install
+Start the development server:
+
+npm run dev
+Access the application: Open your browser and navigate to http://localhost:5173
+
+📷 Screenshot:
+
+🏠 Home Page:
+![Home Page](assets/home.png)
+
+👩‍🏫 Teachers Page:
+![Teachers Page](assets/techers.png)
+
+⭐ Favorites Page:
+![Favorites Page](assets/favorites.png)
+
+👨‍💻 Author:
+Developed by Myroslava Havrylchuk
+📧 Email: myroslavahavrylchuk@gmail.com
+🔗 GitHub: Myrosya-fsd
